@@ -100,8 +100,8 @@ function draw(){
 
 let today = new Date().toDateString();
 
-/* 1日1回制限 */
-if(localStorage.getItem("gachaDate") === today){
+/* 1日1回制限（キー変更済み） */
+if(localStorage.getItem("oshiGachaDate") === today){
 alert("今日はもう引いてるよ");
 return;
 }
@@ -110,10 +110,10 @@ return;
 let char = characters[Math.floor(Math.random()*characters.length)];
 let fortune = fortunes[Math.floor(Math.random()*fortunes.length)];
 
-/* 保存 */
-localStorage.setItem("gachaDate", today);
-localStorage.setItem("gachaChar", JSON.stringify(char));
-localStorage.setItem("gachaFortune", fortune);
+/* 保存（キー変更済み） */
+localStorage.setItem("oshiGachaDate", today);
+localStorage.setItem("oshiGachaChar", JSON.stringify(char));
+localStorage.setItem("oshiGachaFortune", fortune);
 
 /* 表示 */
 show(char, fortune);
@@ -128,10 +128,10 @@ result.innerHTML = `
 `;
 }
 
-/* 起動時に前回表示 */
+/* 起動時に前回表示（キー変更済み） */
 window.onload = () => {
-let char = localStorage.getItem("gachaChar");
-let fortune = localStorage.getItem("gachaFortune");
+let char = localStorage.getItem("oshiGachaChar");
+let fortune = localStorage.getItem("oshiGachaFortune");
 
 if(char && fortune){
 show(JSON.parse(char), fortune);
