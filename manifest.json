@@ -1,0 +1,15 @@
+{
+  "name": "推し育成アプリ",
+  "short_name": "OshiApp",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff5c8a",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
