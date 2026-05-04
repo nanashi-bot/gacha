@@ -1,1 +1,145 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>今日の推しガチャ</title>
+
+<meta name="theme-color" content="#ff5c8a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icon.png">
+
+<style>
+body{
+margin:0;
+font-family:-apple-system;
+background:#f2f2f7;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+}
+
+#container{
+width:100%;
+max-width:400px;
+padding:20px;
+}
+
+#title{
+font-size:22px;
+margin-bottom:20px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#ff5c8a;
+color:#fff;
+font-size:16px;
+margin-top:10px;
+}
+
+#result{
+margin-top:20px;
+}
+
+#result img{
+width:160px;
+height:160px;
+border-radius:16px;
+object-fit:cover;
+}
+
+#fortune{
+margin-top:10px;
+font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="title">🎲 今日の推し</div>
+
+<button onclick="draw()">ガチャを引く</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+/* 推しデータ（ここに追加） */
+let characters = [
+{ name:"ロア", image:"" },
+{ name:"ミク", image:"" },
+{ name:"こむぎ", image:"" },
+{ name:"ソラ", image:"" },
+{ name:"ロキ", image:"" }
+];
+
+/* 運勢 */
+let fortunes = [
+"今日はまったりでOK",
+"ちょっといいことあるかも",
+"無理しなくて大丈夫",
+"好きなこと優先していい日",
+"ゆっくり休もう",
+"小さな幸せ見つかるかも",
+"気分のままでいこう"
+];
+
+function draw(){
+
+let today = new Date().toDateString();
+
+/* 1日1回制限（キー変更済み） */
+if(localStorage.getItem("oshiGachaDate") === today){
+alert("今日はもう引いてるよ");
+return;
+}
+
+/* ランダム */
+let char = characters[Math.floor(Math.random()*characters.length)];
+let fortune = fortunes[Math.floor(Math.random()*fortunes.length)];
+
+/* 保存（キー変更済み） */
+localStorage.setItem("oshiGachaDate", today);
+localStorage.setItem("oshiGachaChar", JSON.stringify(char));
+localStorage.setItem("oshiGachaFortune", fortune);
+
+/* 表示 */
+show(char, fortune);
+}
+
+function show(char, fortune){
+
+result.innerHTML = `
+<img src="${char.image}">
+<h2>${char.name}</h2>
+<div id="fortune">🌟 ${fortune}</div>
+`;
+}
+
+/* 起動時に前回表示（キー変更済み） */
+window.onload = () => {
+let char = localStorage.getItem("oshiGachaChar");
+let fortune = localStorage.getItem("oshiGachaFortune");
+
+if(char && fortune){
+show(JSON.parse(char), fortune);
+}
+};
+
+</script>
+
+</body>
+</html>
